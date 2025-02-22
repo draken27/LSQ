@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSQ Farm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LSQ Farm</h1>
+        <p id="balance">Баланс: 0.0000 LSQ</p>
+        <button onclick="startFarm()">Начать фармить</button>
+        <button onclick="stopFarm()">Закончить фармить</button>
+        <button onclick="checkBalance()">Проверить баланс</button>
+    </div>
+
+    <script>
+        // Функция для начала фарма
+        function startFarm() {
+            Telegram.WebApp.sendData(JSON.stringify({ action: "start_farm" }));
+        }
+
+        // Функция для остановки фарма
+        function stopFarm() {
+            Telegram.WebApp.sendData(JSON.stringify({ action: "stop_farm" }));
+        }
+
+        // Функция для проверки баланса
+        function checkBalance() {
+            Telegram.WebApp.sendData(JSON.stringify({ action: "check_balance" }));
+        }
+
+        // Обработка данных от бота
+        Telegram.WebApp.onEvent('mainButtonClicked', function() {
+            Telegram.WebApp.close();
+        });
+
+        // Инициализация Web App
+        Telegram.WebApp.ready();
+    </script>
+</body>
+</html>
